@@ -1,0 +1,2 @@
+#配置sentinel拉模式持久化
+com.imooc.contentcenter.sentineltest.FileDataSourceInit

@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: user-center
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_center
+    hikari:
+      username: root
+      password: 12345678
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.28.2:9876
+      bindings:
+        my-input:
+          destination: stream-my-topic
+          group: my-binder-group
+        input:
+          #destination: stream-test-topic
+          destination: add-bonus
+          #一定要设置，如果是其他MQ可以不设置
+          group: binder-group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        cluster-name: BJ
+        metadata:
+          #自己这个实例的版本
+          version: v1
+        #namespace: 55fb8bc1-faaf-463f-9b02-c7d9099f48e9
+  zipkin:
+    base-url: http://localhost:9411/
+    discoveryClientEnabled: false
+  sleuth:
+    sampler:
+      #抽样率，默认是0.1
+      probability: 1.0
+server:
+  port: 8822
+rocketmq:
+  name-server: 192.168.28.2:9876
+logging:
+  level:
+    com.alibaba.nacos: error
+
+jwt:
+  secret: qazwsxedc
+  # 有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
